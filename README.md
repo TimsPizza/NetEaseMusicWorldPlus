@@ -4,16 +4,27 @@
 
 ## 安装
 
-[![Chrome](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/neteasemusicworld%20/pjcgkmiglhiambjngnljkdpoggonlnfe) [![Firefox](https://addons.cdn.mozilla.net/static/img/addons-buttons/AMO-button_1.png)](https://addons.mozilla.org/zh-CN/firefox/addon/neteasemusicworldplus/)
+1. 下载或克隆本仓库
+2. 打开Chrome浏览器，访问 chrome://extensions/
+3. 启用右上角的"开发者模式"
+4. 点击"加载已解压的扩展程序"
+5. 选择本项目的根目录
 
 ## 使用
 
 - 普通模式: 同 [acgotaku/NetEaseMusicWorld](https://github.com/acgotaku/NetEaseMusicWorld) 原版功能
+- 增强模式: 解决海外 CDN 分发问题，无需写入 hosts
 
-- 增强模式: "重定向"解决海外 CDN 分发问题, 无需写入 hosts
+## 修改说明
 
-## 说明
+- 迁移到Manifest V3规范
+- 使用declarativeNetRequest API替代webRequest
+- 移除inject script方式，改用declarativeNetRequest规则
+- 优化代码结构，提高兼容性和稳定性
+- 移除图标设置功能以解决兼容性问题
 
-因云村网页版播放器改为 XHR (fetch) 实现, 发出的 OPTIONS 请求被重定向后返回非 2XX 状态码导致预检失败, 此异常会导致歌曲播放进度记录出现问题 (下一首歌不从头开始播放 [#1](https://github.com/nondanee/NetEaseMusicWorldPlus/issues/1)), 不重定向 OPTIONS 请求又会因 DNS 解析失败而报错, 引发相同问题, 进退两难 (onBeforeRequest 无法直接返回 response, 只能重定向)。
+## 注意事项
 
-故放弃通过 webRequest API 来重定向，采用 inject script 的方式拦截 AJAX 返回数据, 修改 url 达到重定向效果，因此切换模式后需要刷新页面，重新注入脚本，才会生效。
+- 本扩展仅用于学习和研究目的
+- 请勿上架至Chrome Web Store
+- 切换模式后需要刷新页面以应用更改
